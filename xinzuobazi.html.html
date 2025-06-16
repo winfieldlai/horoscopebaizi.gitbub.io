@@ -1,0 +1,1492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpiritualTraditions - 多维命理分析平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Noto+Serif+SC:wght@400;700&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --transition-speed: 0.5s;
+        }
+        
+        body {
+            font-family: 'Noto Serif SC', serif;
+            background: #0d0419;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(106, 13, 173, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(93, 63, 211, 0.1) 0%, transparent 20%);
+        }
+        
+        /* 头部样式 */
+        header {
+            background: rgba(15, 5, 30, 0.95);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(150, 80, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(106, 0, 255, 0.2);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(90deg, #9d4edd, #5a189a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: #c77dff;
+            font-size: 2.2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav li {
+            margin-left: 25px;
+        }
+        
+        nav a {
+            color: #e0aaff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: all var(--transition-speed) ease;
+            position: relative;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        nav a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(199, 125, 255, 0.8);
+        }
+        
+        nav a.active {
+            color: #ffffff;
+            background: rgba(157, 78, 221, 0.2);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #c77dff, transparent);
+            transition: width var(--transition-speed) ease;
+        }
+        
+        nav a.active::after, nav a:hover::after {
+            width: 100%;
+        }
+        
+        /* 主内容样式 */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        
+        .page-title h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .page-title p {
+            color: #b19cd9;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        .page-title::after {
+            content: '';
+            display: block;
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #9d4edd, transparent);
+            margin: 25px auto;
+            border-radius: 2px;
+        }
+        
+        /* 页面切换 */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.8s ease;
+            padding: 20px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            min-height: 70vh;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 星盘解析页面 - 紫色科技风 */
+        #astrology-page {
+            background: rgba(26, 12, 42, 0.7);
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            box-shadow: 0 0 30px rgba(157, 78, 221, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        #astrology-page .page-title h1 {
+            background: linear-gradient(90deg, #c77dff, #9d4edd, #5d3fd3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* 八字测算页面 - 黑金古风 */
+        #bazi-page {
+            background: rgba(20, 15, 5, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        #bazi-page .page-title h1 {
+            background: linear-gradient(90deg, #d4af37, #b8860b, #daa520);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        /* 紫薇解析页面 - 红金传统风 */
+        #ziwei-page {
+            background: rgba(40, 10, 5, 0.8);
+            border: 1px solid rgba(200, 50, 50, 0.3);
+            box-shadow: 0 0 30px rgba(200, 50, 50, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        #ziwei-page .page-title h1 {
+            background: linear-gradient(90deg, #e25822, #b33f1a, #ff7043);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        /* 表单样式 */
+        .form-container {
+            background: rgba(10, 5, 20, 0.6);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(150, 80, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .form-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-title i {
+            margin-right: 12px;
+        }
+        
+        /* 星盘标题颜色 */
+        #astrology-page .form-title {
+            color: #c77dff;
+            text-shadow: 0 0 10px rgba(199, 125, 255, 0.5);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        /* 八字标题颜色 */
+        #bazi-page .form-title {
+            color: #d4af37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        /* 紫薇标题颜色 */
+        #ziwei-page .form-title {
+            color: #ff7043;
+            text-shadow: 0 0 10px rgba(255, 112, 67, 0.5);
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        /* 星盘标签颜色 */
+        #astrology-page .form-group label {
+            color: #e0aaff;
+        }
+        
+        /* 八字标签颜色 */
+        #bazi-page .form-group label {
+            color: #f0c96d;
+        }
+        
+        /* 紫薇标签颜色 */
+        #ziwei-page .form-group label {
+            color: #ffab91;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all var(--transition-speed) ease;
+            background: rgba(20, 10, 30, 0.7);
+            color: #fff;
+            border: 1px solid rgba(150, 80, 255, 0.3);
+        }
+        
+        #bazi-page .form-group input, 
+        #bazi-page .form-group select {
+            background: rgba(30, 20, 10, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        #ziwei-page .form-group input, 
+        #ziwei-page .form-group select {
+            background: rgba(50, 15, 10, 0.7);
+            border: 1px solid rgba(226, 88, 34, 0.3);
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(157, 78, 221, 0.4);
+        }
+        
+        #bazi-page .form-group input:focus, 
+        #bazi-page .form-group select:focus {
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.4);
+        }
+        
+        #ziwei-page .form-group input:focus, 
+        #ziwei-page .form-group select:focus {
+            box-shadow: 0 0 0 3px rgba(226, 88, 34, 0.4);
+        }
+        
+        .btn {
+            display: inline-block;
+            color: white;
+            padding: 14px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-speed) ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #9d4edd, #5a189a, #9d4edd);
+            background-size: 200% 200%;
+            z-index: -1;
+            transition: all 0.5s ease;
+        }
+        
+        .btn:hover::before {
+            background-position: 100% 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(157, 78, 221, 0.5);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        #bazi-page .btn::before {
+            background: linear-gradient(90deg, #d4af37, #b8860b, #d4af37);
+        }
+        
+        #bazi-page .btn:hover {
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.5);
+        }
+        
+        #ziwei-page .btn::before {
+            background: linear-gradient(90deg, #e25822, #b33f1a, #e25822);
+        }
+        
+        #ziwei-page .btn:hover {
+            box-shadow: 0 5px 20px rgba(226, 88, 34, 0.5);
+        }
+        
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+            grid-column: 1 / -1;
+        }
+        
+        /* 结果样式 */
+        .result-container {
+            background: rgba(15, 5, 30, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            display: none;
+            border: 1px solid rgba(150, 80, 255, 0.3);
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        #bazi-page .result-container {
+            background: rgba(20, 15, 5, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        #ziwei-page .result-container {
+            background: rgba(30, 10, 5, 0.7);
+            border: 1px solid rgba(226, 88, 34, 0.3);
+        }
+        
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(150, 80, 255, 0.2);
+        }
+        
+        #bazi-page .result-header {
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        #ziwei-page .result-header {
+            border-bottom: 1px solid rgba(226, 88, 34, 0.2);
+        }
+        
+        .result-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        #astrology-page .result-header h2 {
+            color: #c77dff;
+            text-shadow: 0 0 10px rgba(199, 125, 255, 0.5);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        #bazi-page .result-header h2 {
+            color: #d4af37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        #ziwei-page .result-header h2 {
+            color: #ff7043;
+            text-shadow: 0 0 10px rgba(255, 112, 67, 0.5);
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        .result-header p {
+            font-size: 1.1rem;
+            color: #e0aaff;
+        }
+        
+        #bazi-page .result-header p {
+            color: #f0c96d;
+        }
+        
+        #ziwei-page .result-header p {
+            color: #ffab91;
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .result-card {
+            background: rgba(20, 10, 40, 0.6);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all var(--transition-speed) ease;
+            border: 1px solid rgba(150, 80, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        #bazi-page .result-card {
+            background: rgba(30, 20, 10, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        #ziwei-page .result-card {
+            background: rgba(40, 15, 10, 0.6);
+            border: 1px solid rgba(226, 88, 34, 0.2);
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(157, 78, 221, 0.3);
+        }
+        
+        #bazi-page .result-card:hover {
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+        
+        #ziwei-page .result-card:hover {
+            box-shadow: 0 8px 25px rgba(226, 88, 34, 0.3);
+        }
+        
+        .result-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        #astrology-page .result-card h3 {
+            color: #c77dff;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        #bazi-page .result-card h3 {
+            color: #d4af37;
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        #ziwei-page .result-card h3 {
+            color: #ff7043;
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        .result-card h3 i {
+            margin-right: 10px;
+        }
+        
+        .result-card p {
+            line-height: 1.8;
+            color: #e0aaff;
+        }
+        
+        #bazi-page .result-card p {
+            color: #f0c96d;
+        }
+        
+        #ziwei-page .result-card p {
+            color: #ffab91;
+        }
+        
+        /* 星盘样式 */
+        .astrology-chart {
+            width: 100%;
+            max-width: 500px;
+            margin: 30px auto;
+            position: relative;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 100%;
+        }
+        
+        .chart-circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #9d4edd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(15, 5, 30, 0.5);
+            box-shadow: 0 0 30px rgba(157, 78, 221, 0.3);
+        }
+        
+        .chart-center {
+            width: 60px;
+            height: 60px;
+            background: #5a189a;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            z-index: 3;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.5);
+        }
+        
+        .planet-item {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all var(--transition-speed) ease;
+            background: rgba(26, 12, 42, 0.8);
+            border: 1px solid #9d4edd;
+            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
+        }
+        
+        .planet-item:hover {
+            transform: scale(1.1);
+            z-index: 4;
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.8);
+        }
+        
+        .planet-item .planet-name {
+            font-weight: bold;
+            margin-bottom: 3px;
+            color: #c77dff;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .planet-item .planet-sign {
+            font-size: 0.8rem;
+            color: #e0aaff;
+        }
+        
+        /* 八字展示 */
+        .bazi-display {
+            background: rgba(30, 20, 10, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .bazi-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-family: 'Ma Shan Zheng', cursive;
+            color: #d4af37;
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+        }
+        
+        .bazi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .bazi-item {
+            background: rgba(40, 30, 15, 0.8);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        
+        .bazi-item .label {
+            font-size: 0.9rem;
+            color: #f0c96d;
+            margin-bottom: 5px;
+        }
+        
+        .bazi-item .value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4af37;
+            font-family: 'Ma Shan Zheng', cursive;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+        }
+        
+        /* 紫薇盘样式 */
+        .ziwei-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-width: 800px;
+            margin: 30px auto;
+        }
+        
+        .ziwei-palace {
+            background: rgba(50, 15, 10, 0.7);
+            border: 1px solid rgba(226, 88, 34, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            min-height: 150px;
+        }
+        
+        .ziwei-palace.main {
+            background: rgba(70, 25, 15, 0.8);
+            border-color: #ff7043;
+        }
+        
+        .palace-title {
+            font-weight: bold;
+            color: #ff7043;
+            margin-bottom: 10px;
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        
+        .palace-stars {
+            font-size: 0.9rem;
+            color: #ffab91;
+        }
+        
+        .palace-stars .star {
+            display: block;
+            margin: 3px 0;
+        }
+        
+        .palace-stars .main-star {
+            font-weight: bold;
+            color: #ff7043;
+        }
+        
+        /* 页脚样式 */
+        footer {
+            background: linear-gradient(to top, rgba(10, 5, 20, 0.9), rgba(20, 10, 40, 0.7));
+            color: white;
+            padding: 40px 0 20px;
+            margin-top: 60px;
+            border-top: 1px solid rgba(150, 80, 255, 0.3);
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+            color: #c77dff;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: linear-gradient(90deg, #9d4edd, #5a189a);
+        }
+        
+        .footer-col p, .footer-col a {
+            color: rgba(224, 170, 255, 0.85);
+            margin-bottom: 12px;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-col a:hover {
+            color: #ffffff;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(150, 80, 255, 0.2);
+            color: rgba(224, 170, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav li {
+                margin: 5px 10px;
+            }
+            
+            .bazi-grid, .ziwei-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .page-title h1 {
+                font-size: 2.4rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title h1 {
+                font-size: 2rem;
+            }
+            
+            .form-title {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                width: 100%;
+                padding: 16px;
+            }
+            
+            .bazi-grid, .ziwei-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* 星座背景装饰 */
+        .stars-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration, 5s) infinite var(--delay, 0s);
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        .pulsate {
+            animation: pulsate 3s infinite ease-in-out;
+        }
+        
+        @keyframes pulsate {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 星空背景 -->
+    <div class="stars-bg" id="stars-bg"></div>
+    
+    <!-- 头部导航 -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-yin-yang"></i>
+                <span>SpiritualTraditions</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#" data-target="astrology" class="active">星盘解析</a></li>
+                    <li><a href="#" data-target="bazi">八字测算</a></li>
+                    <li><a href="#" data-target="ziwei">紫薇解析</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- 主内容区 -->
+    <div class="container">
+            <!-- 星盘解析页面 -->
+        <section id="astrology-page" class="page-section active">
+            <div class="page-title">
+                <h1>量子星盘解析</h1>
+                <p>通过先进算法分析您的星盘，揭示星座能量对性格、事业和情感的影响</p>
+            </div>
+            
+            <!-- 输入表单 -->
+            <div class="form-container">
+                <h2 class="form-title"><i class="fas fa-stars"></i> 个人信息</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="astrology-name">姓名</label>
+                        <input type="text" id="astrology-name" placeholder="请输入您的姓名" value="张明">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="astrology-birthdate">出生日期</label>
+                        <input type="date" id="astrology-birthdate" value="1990-05-15">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="astrology-birthtime">出生时辰</label>
+                        <select id="astrology-birthtime">
+                            <option value="">请选择出生时辰</option>
+                            <option value="23-1">子时 (23:00-1:00)</option>
+                            <option value="1-3">丑时 (1:00-3:00)</option>
+                            <option value="3-5">寅时 (3:00-5:00)</option>
+                            <option value="5-7">卯时 (5:00-7:00)</option>
+                            <option value="7-9">辰时 (7:00-9:00)</option>
+                            <option value="9-11">巳时 (9:00-11:00)</option>
+                            <option value="11-13" selected>午时 (11:00-13:00)</option>
+                            <option value="13-15">未时 (13:00-15:00)</option>
+                            <option value="15-17">申时 (15:00-17:00)</option>
+                            <option value="17-19">酉时 (17:00-19:00)</option>
+                            <option value="19-21">戌时 (19:00-21:00)</option>
+                            <option value="21-23">亥时 (21:00-23:00)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="astrology-city">出生城市</label>
+                        <input type="text" id="astrology-city" placeholder="请输入您的出生城市" value="北京">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="astrology-gender">性别</label>
+                        <select id="astrology-gender">
+                            <option value="">请选择性别</option>
+                            <option value="male" selected>男性</option>
+                            <option value="female">女性</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="btn-container">
+                    <button class="btn pulsate" id="astrology-calculate-btn">
+                        <i class="fas fa-calculator"></i> 量子解析星盘
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 加载动画 -->
+            <div class="loader" id="astrology-loader">
+                <div class="loader-spinner"></div>
+                <div class="loader-text">量子计算中... 正在连接宇宙能量</div>
+            </div>
+            
+            <!-- 结果区域 -->
+            <div class="result-container" id="astrology-result">
+                <div class="result-header">
+                    <h2 id="astrology-result-name">张明 的星盘解析报告</h2>
+                    <p id="astrology-result-birth">1990年5月15日 午时 (男性) | 北京出生</p>
+                </div>
+                
+                <!-- 星座信息卡片 -->
+                <div class="zodiac-info">
+                    <div class="zodiac-card">
+                        <div class="zodiac-icon"><i class="fas fa-sun"></i></div>
+                        <div class="zodiac-title">太阳星座</div>
+                        <div class="zodiac-value" id="sun-sign">金牛座</div>
+                    </div>
+                    
+                    <div class="zodiac-card">
+                        <div class="zodiac-icon"><i class="fas fa-moon"></i></div>
+                        <div class="zodiac-title">月亮星座</div>
+                        <div class="zodiac-value" id="moon-sign">天蝎座</div>
+                    </div>
+                    
+                    <div class="zodiac-card">
+                        <div class="zodiac-icon"><i class="fas fa-arrow-up"></i></div>
+                        <div class="zodiac-title">上升星座</div>
+                        <div class="zodiac-value" id="rising-sign">处女座</div>
+                    </div>
+                    
+                    <div class="zodiac-card">
+                        <div class="zodiac-icon"><i class="fas fa-venus"></i></div>
+                        <div class="zodiac-title">金星星座</div>
+                        <div class="zodiac-value" id="venus-sign">双子座</div>
+                    </div>
+                </div>
+                
+                <div class="astrology-chart">
+                    <div class="chart-container">
+                        <div class="chart-circle">
+                            <div class="chart-center">命宫</div>
+                            <div class="planet-item" style="top: 15%; left: 15%;" id="sun-item">
+                                <div class="planet-name">太阳</div>
+                                <div class="planet-sign" id="sun-sign-display">金牛座</div>
+                            </div>
+                            <div class="planet-item" style="top: 15%; right: 15%;" id="moon-item">
+                                <div class="planet-name">月亮</div>
+                                <div class="planet-sign" id="moon-sign-display">天蝎座</div>
+                            </div>
+                            <div class="planet-item" style="top: 50%; left: 5%;" id="mercury-item">
+                                <div class="planet-name">水星</div>
+                                <div class="planet-sign" id="mercury-sign-display">双子座</div>
+                            </div>
+                            <div class="planet-item" style="top: 50%; right: 5%;" id="venus-item">
+                                <div class="planet-name">金星</div>
+                                <div class="planet-sign" id="venus-sign-display">双子座</div>
+                            </div>
+                            <div class="planet-item" style="bottom: 15%; left: 15%;" id="mars-item">
+                                <div class="planet-name">火星</div>
+                                <div class="planet-sign" id="mars-sign-display">白羊座</div>
+                            </div>
+                            <div class="planet-item" style="bottom: 15%; right: 15%;" id="jupiter-item">
+                                <div class="planet-name">木星</div>
+                                <div class="planet-sign" id="jupiter-sign-display">射手座</div>
+                            </div>
+                            <div class="planet-item" style="top: 30%; left: 30%;" id="saturn-item">
+                                <div class="planet-name">土星</div>
+                                <div class="planet-sign" id="saturn-sign-display">摩羯座</div>
+                            </div>
+                            <div class="planet-item" style="top: 30%; right: 30%;" id="rising-item">
+                                <div class="planet-name">上升</div>
+                                <div class="planet-sign" id="rising-sign-display">处女座</div>
+                            </div>
+                            <div class="planet-item" style="bottom: 30%; left: 30%;" id="north-node-item">
+                                <div class="planet-name">北交</div>
+                                <div class="planet-sign" id="north-node-sign-display">双子座</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h3><i class="fas fa-user-astronaut"></i> 性格分析</h3>
+                        <p>太阳<span class="highlight" id="sun-sign-text">金牛座</span>赋予你稳定务实的特质，月亮<span class="highlight" id="moon-sign-text">天蝎座</span>让你情感深邃而强烈。上升<span class="highlight" id="rising-sign-text">处女座</span>使你外表细致有条理。水星<span class="highlight" id="mercury-sign-text">双子座</span>带来灵活的思维和沟通能力，金星<span class="highlight" id="venus-sign-text">双子座</span>则让你在人际关系中追求多样性和智性交流。</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3><i class="fas fa-rocket"></i> 事业运势</h3>
+                        <p>火星<span class="highlight" id="mars-sign-text">白羊座</span>赋予你强大的行动力和开拓精神，适合创业或担任领导职位。木星<span class="highlight" id="jupiter-sign-text">射手座</span>带来幸运和扩张机会，尤其在教育、旅游和国际事务领域。土星<span class="highlight" id="saturn-sign-text">摩羯座</span>提示你需建立稳固的事业基础，35岁后事业将稳步上升。</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3><i class="fas fa-heart"></i> 情感运势</h3>
+                        <p>金星<span class="highlight" id="venus-sign-text2">双子座</span>让你重视精神交流和多样性，容易吸引聪明活泼的伴侣。月亮<span class="highlight">天蝎座</span>使你情感强烈，渴望深度连接。2024-2025年将迎来重要感情机遇，可能遇到灵魂伴侣。需注意避免过度理性分析情感。</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3><i class="fas fa-lightbulb"></i> 量子启示</h3>
+                        <p>星盘显示你的量子能量场在2025年将达到峰值，这是突破舒适区的关键时期。利用金牛座的坚韧与处女座的细致，在科技创新或金融领域寻求突破。宇宙提示：4月新月期间是启动新项目的最佳时机。</p>
+                    </div>
+                </div>
+                
+                <!-- 详细分析部分 -->
+                <div class="analysis-detail">
+                    <h3 class="analysis-title">深度星盘解析</h3>
+                    <div class="analysis-content">
+                        <h4>人格特质与天赋</h4>
+                        <p>你的太阳金牛座与月亮天蝎座的组合形成了"稳定与深度"的独特人格。你具有金牛座的务实可靠，同时拥有天蝎座的深刻洞察力。这种组合使你成为出色的资源管理者，能够在金融、心理学或研究领域大放异彩。</p>
+                        
+                        <h4>事业发展方向</h4>
+                        <p>火星白羊座赋予你强大的开创精神，适合自主创业或担任项目负责人。木星射手座的位置预示着你将在跨文化、教育或旅游领域获得成功。2025年土星进入水瓶座后，你的职业将迎来重大转折点，建议提前规划。</p>
+                        
+                        <h4>情感与人际关系</h4>
+                        <p>金星双子座使你在情感中重视智力交流，理想的伴侣应该是聪明且善于沟通的人。你容易被多才多艺的人吸引，但月亮天蝎座要求情感深度，这可能导致内心矛盾。学会平衡理性与情感是情感幸福的关键。</p>
+                        
+                        <h4>2025年运势展望</h4>
+                        <p>2025年对你来说是突破性的一年。木星与天王星在金牛座形成罕见合相，这将为你的财务和职业带来意想不到的机会。4月和10月的日月食将触发重要人生转折，建议保持开放心态迎接变化。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 八字测算页面 -->
+        <section id="bazi-page" class="page-section">
+            <div class="page-title">
+                <h1>八字命理测算</h1>
+                <p>探索您的命运轨迹，了解性格特点、事业发展与情感运势，把握人生方向</p>
+            </div>
+            
+            <!-- 输入表单 -->
+            <div class="form-container">
+                <h2 class="form-title"><i class="fas fa-dragon"></i> 个人信息</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="bazi-name">姓名</label>
+                        <input type="text" id="bazi-name" placeholder="请输入您的姓名">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bazi-birthdate">出生日期</label>
+                        <input type="date" id="bazi-birthdate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bazi-birthtime">出生时辰</label>
+                        <select id="bazi-birthtime">
+                            <option value="">请选择出生时辰</option>
+                            <option value="23-1">子时 (23:00-1:00)</option>
+                            <option value="1-3">丑时 (1:00-3:00)</option>
+                            <option value="3-5">寅时 (3:00-5:00)</option>
+                            <option value="5-7">卯时 (5:00-7:00)</option>
+                            <option value="7-9">辰时 (7:00-9:00)</option>
+                            <option value="9-11">巳时 (9:00-11:00)</option>
+                            <option value="11-13">午时 (11:00-13:00)</option>
+                            <option value="13-15">未时 (13:00-15:00)</option>
+                            <option value="15-17">申时 (15:00-17:00)</option>
+                            <option value="17-19">酉时 (17:00-19:00)</option>
+                            <option value="19-21">戌时 (19:00-21:00)</option>
+                            <option value="21-23">亥时 (21:00-23:00)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bazi-city">出生城市</label>
+                        <input type="text" id="bazi-city" placeholder="请输入您的出生城市">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bazi-gender">性别</label>
+                        <select id="bazi-gender">
+                            <option value="">请选择性别</option>
+                            <option value="male">男性</option>
+                            <option value="female">女性</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="btn-container">
+                    <button class="btn" id="bazi-calculate-btn">
+                        <i class="fas fa-calculator"></i> 开始测算
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 结果区域 -->
+            <div class="result-container" id="bazi-result">
+                <div class="result-header">
+                    <h2 id="bazi-result-name">张明 的八字命理分析</h2>
+                    <p id="bazi-result-birth">1990年5月15日 午时 (男性)</p>
+                </div>
+                
+                <div class="bazi-display">
+                    <h3 class="bazi-title">八字排盘</h3>
+                    <div class="bazi-grid">
+                        <div class="bazi-item">
+                            <div class="label">年柱</div>
+                            <div class="value">庚午</div>
+                        </div>
+                        <div class="bazi-item">
+                            <div class="label">月柱</div>
+                            <div class="value">辛巳</div>
+                        </div>
+                        <div class="bazi-item">
+                            <div class="label">日柱</div>
+                            <div class="value">庚辰</div>
+                        </div>
+                        <div class="bazi-item">
+                            <div class="label">时柱</div>
+                            <div class="value">壬午</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h3><i class="fas fa-yin-yang"></i> 八字解析</h3>
+                        <p>日主庚金生于巳月，火旺金相。年柱庚午，月柱辛巳，形成火金相克之势。时柱壬午，水火既济。整体格局为偏印格，需注意调和五行平衡。命带天乙贵人，关键时刻易得贵人相助。</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3><i class="fas fa-brain"></i> 性格分析</h3>
+                        <p>庚金日主之人，性格刚毅果断，有领导才能。月柱辛金透出，思维缜密，重情重义。但火旺克金，有时会显得急躁冲动，需培养耐心和包容心。水星透干赋予你良好的沟通能力。</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3><i class="fas fa-landmark"></i> 事业运程</h3>
+                        <p>事业上适合从事管理、技术或金融相关行业。35岁前运势起伏较大，需稳扎稳打。40岁后行土金大运，事业将迎来黄金发展期，有望达到事业巅峰。2025年流年乙巳，有重大职业转变机会。</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3><i class="fas fa-heart"></i> 情感婚姻</h3>
+                        <p>感情方面较为专一，但早期易遇波折。日支辰土为配偶宫，配偶性格温和包容。建议晚婚更利感情稳定。婚后需多关注伴侣感受，避免因工作忽视家庭。2024-2025年有良缘出现。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 紫薇解析页面 -->
+        <section id="ziwei-page" class="page-section">
+            <div class="page-title">
+                <h1>紫薇命理解析</h1>
+                <p>通过紫薇斗数探索人生轨迹，了解家庭、事业、情感与健康的命理奥秘</p>
+            </div>
+            
+            <!-- 输入表单 -->
+            <div class="form-container">
+                <h2 class="form-title"><i class="fas fa-chess-rook"></i> 个人信息</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="ziwei-name">姓名</label>
+                        <input type="text" id="ziwei-name" placeholder="请输入您的姓名">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ziwei-birthdate">出生日期</label>
+                        <input type="date" id="ziwei-birthdate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ziwei-birthtime">出生时辰</label>
+                        <select id="ziwei-birthtime">
+                            <option value="">请选择出生时辰</option>
+                            <option value="23-1">子时 (23:00-1:00)</option>
+                            <option value="1-3">丑时 (1:00-3:00)</option>
+                            <option value="3-5">寅时 (3:00-5:00)</option>
+                            <option value="5-7">卯时 (5:00-7:00)</option>
+                            <option value="7-9">辰时 (7:00-9:00)</option>
+                            <option value="9-11">巳时 (9:00-11:00)</option>
+                            <option value="11-13">午时 (11:00-13:00)</option>
+                            <option value="13-15">未时 (13:00-15:00)</option>
+                            <option value="15-17">申时 (15:00-17:00)</option>
+                            <option value="17-19">酉时 (17:00-19:00)</option>
+                            <option value="19-21">戌时 (19:00-21:00)</option>
+                            <option value="21-23">亥时 (21:00-23:00)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ziwei-city">出生城市</label>
+                        <input type="text" id="ziwei-city" placeholder="请输入您的出生城市">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ziwei-gender">性别</label>
+                        <select id="ziwei-gender">
+                            <option value="">请选择性别</option>
+                            <option value="male">男性</option>
+                            <option value="female">女性</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="btn-container">
+                    <button class="btn" id="ziwei-calculate-btn">
+                        <i class="fas fa-calculator"></i> 开始解析
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 结果区域 -->
+            <div class="result-container" id="ziwei-result">
+                <div class="result-header">
+                    <h2 id="ziwei-result-name">张明 的紫薇命盘分析</h2>
+                    <p id="ziwei-result-birth">1990年5月15日 午时 (男性)</p>
+                </div>
+                
+                <div class="ziwei-grid">
+                    <div class="ziwei-palace">
+                        <div class="palace-title">命宫</div>
+                        <div class="palace-stars">
+                            <span class="star main-star">紫薇</span>
+                            <span class="star">天府</span>
+                            <span class="star">文昌</span>
+                        </div>
+                    </div>
+                    <div class="ziwei-palace">
+                        <div class="palace-title">兄弟宫</div>
+                        <div class="palace-stars">
+                            <span class="star">天机</span>
+                            <span class="star">巨门</span>
+                        </div>
+                    </div>
+                    <div class="ziwei-palace main">
+                        <div class="palace-title">夫妻宫</div>
+                        <div class="palace-stars">
+                            <span class="star main-star">太阳</span>
+                            <span class="star">天梁</span>
+                        </div>
+                    </div>
+                    <div class="ziwei-palace">
+                        <div class="palace-title">子女宫</div>
+                        <div class="palace-stars">
+                            <span class="star">武曲</span>
+                            <span class="star">七杀</span>
+                        </div>
+                    </div>
+                    <div class="ziwei-palace">
+                        <div class="palace-title">财帛宫</div>
+                        <div class="palace-stars">
+                            <span class="star main-star">天同</span>
+                            <span class="star">太阴</span>
+                        </div>
+                    </div>
+                    <div class="ziwei-palace">
+                        <div class="palace-title">疾厄宫</div>
+                        <div class="palace-stars">
+                            <span class="star">破军</span>
+                            <span class="star">擎羊</span>
+                        </div>
+                    </div>
+                    <div class="ziwei-palace">
+                        <div class="palace-title">迁移宫</div>
+                        <div class="palace-stars">
+                            <span class="star main-star">廉贞</span>
+                            <span class="star">贪狼</span>
+                        </div>
+                    </div>
+                    <div class="ziwei-palace">
+                        <div class="palace-title">交友宫</div>
+                        <div class="palace-stars">
+                            <span class="star">天相</span>
+                            <span class="star">天马</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-grid">
+                    <div class="result-card">
+                        <h3><i class="fas fa-home"></i> 家庭与性格</h3>
+                        <p>命宫紫薇天府，天生具备领导才能和贵族气质。父母宫天机巨门，家庭环境注重教育，父母关系和谐。你性格稳重，有责任感，但有时过于追求完美。建议多与家人沟通，避免将工作压力带回家中。</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3><i class="fas fa-briefcase"></i> 事业与财富</h3>
+                        <p>财帛宫天同太阴，财运稳定但需防过度消费。事业宫太阳天梁，适合从事教育、医疗或公益事业。迁移宫廉贞贪狼，有海外发展机遇。2025年将迎来事业转折点，可能获得重要晋升或创业机会。</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3><i class="fas fa-heart"></i> 情感与人际</h3>
+                        <p>夫妻宫太阳天梁，配偶性格开朗正直，可能年长或有社会地位。子女宫武曲七杀，子女独立性强。交友宫天相天马，朋友多为专业人士。需注意2024年感情可能出现考验，建议加强沟通与信任。</p>
+                    </div>
+                    
+                    <div class="result-card">
+                        <h3><i class="fas fa-heartbeat"></i> 健康与建议</h3>
+                        <p>疾厄宫破军擎羊，需注意肠胃问题和意外伤害。建议定期体检，保持规律作息。精神方面易有压力，可通过冥想、瑜伽等方式放松。2025年健康运上升，是开始健身计划的好时机。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>关于我们</h3>
+                <p>SpiritualTraditions致力于融合东西方神秘学智慧，提供专业的命理分析服务，助您探索人生轨迹。</p>
+            </div>
+            
+            <div class="footer-col">
+                <h3>服务项目</h3>
+                <a href="#">西方占星解析</a>
+                <a href="#">八字命理测算</a>
+                <a href="#">紫微斗数分析</a>
+                <a href="#">塔罗运势预测</a>
+            </div>
+            
+            <div class="footer-col">
+                <h3>联系我们</h3>
+                <p><i class="fas fa-envelope"></i> contact@spiritaltraditions.com</p>
+                <p><i class="fas fa-phone"></i> 400-888-9999</p>
+                <p><i class="fas fa-map-marker-alt"></i> 上海市黄浦区神秘学研究中心</p>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>© 2023 SpiritualTraditions 版权所有 | 探索命理奥秘 把握人生方向</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 创建星空背景
+            const starsBg = document.getElementById('stars-bg');
+            for (let i = 0; i < 200; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.width = `${Math.random() * 3}px`;
+                star.style.height = star.style.width;
+                star.style.setProperty('--duration', `${Math.random() * 5 + 3}s`);
+                star.style.setProperty('--delay', `${Math.random() * 5}s`);
+                starsBg.appendChild(star);
+            }
+            
+            // 页面切换功能
+            const navLinks = document.querySelectorAll('nav a');
+            const pageSections = document.querySelectorAll('.page-section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 更新活动导航
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 显示目标页面
+                    const targetId = this.getAttribute('data-target') + '-page';
+                    pageSections.forEach(section => {
+                        section.classList.remove('active');
+                        if(section.id === targetId) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            // 设置默认日期为25年前
+            const today = new Date();
+            const defaultDate = new Date(today.getFullYear() - 25, today.getMonth(), today.getDate());
+            
+            // 设置所有日期输入框的默认值
+            document.querySelectorAll('input[type="date"]').forEach(input => {
+                input.valueAsDate = defaultDate;
+            });
+            
+            // 通用测算函数
+            function setupCalculation(btnId, resultId, nameId, birthId, timeSelectId, genderId) {
+                const calculateBtn = document.getElementById(btnId);
+                const resultSection = document.getElementById(resultId);
+                const nameInput = document.getElementById(nameId);
+                const birthInput = document.getElementById(birthId);
+                const timeSelect = document.getElementById(timeSelectId);
+                const genderSelect = document.getElementById(genderId);
+                
+                calculateBtn.addEventListener('click', function() {
+                    const name = nameInput.value || '访客';
+                    const birthdate = birthInput.value;
+                    const birthtime = timeSelect.value;
+                    const gender = genderSelect.value || 'male';
+                    
+                    // 简单验证
+                    if (!birthdate) {
+                        alert('请填写出生日期');
+                        return;
+                    }
+                    
+                    if (!birthtime) {
+                        alert('请选择出生时辰');
+                        return;
+                    }
+                    
+                    // 更新结果中的个人信息
+                    const birthDate = new Date(birthdate);
+                    const year = birthDate.getFullYear();
+                    const month = birthDate.getMonth() + 1;
+                    const day = birthDate.getDate();
+                    
+                    document.querySelector(`#${resultId} .result-header h2`).textContent = name + ' 的命理分析';
+                    document.querySelector(`#${resultId} .result-header p`).textContent = 
+                        `${year}年${month}月${day}日 ${getTimeText(birthtime)} (${gender === 'male' ? '男性' : '女性'})`;
+                    
+                    // 显示结果区域
+                    resultSection.style.display = 'block';
+                    
+                    // 滚动到结果区域
+                    resultSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            }
+            
+            // 设置各页面的测算功能
+            setupCalculation('astrology-calculate-btn', 'astrology-result', 'astrology-name', 'astrology-birthdate', 'astrology-birthtime', 'astrology-gender');
+            setupCalculation('bazi-calculate-btn', 'bazi-result', 'bazi-name', 'bazi-birthdate', 'bazi-birthtime', 'bazi-gender');
+            setupCalculation('ziwei-calculate-btn', 'ziwei-result', 'ziwei-name', 'ziwei-birthdate', 'ziwei-birthtime', 'ziwei-gender');
+            
+            // 获取时辰文本
+            function getTimeText(timeValue) {
+                const times = {
+                    '23-1': '子时 (23:00-1:00)',
+                    '1-3': '丑时 (1:00-3:00)',
+                    '3-5': '寅时 (3:00-5:00)',
+                    '5-7': '卯时 (5:00-7:00)',
+                    '7-9': '辰时 (7:00-9:00)',
+                    '9-11': '巳时 (9:00-11:00)',
+                    '11-13': '午时 (11:00-13:00)',
+                    '13-15': '未时 (13:00-15:00)',
+                    '15-17': '申时 (15:00-17:00)',
+                    '17-19': '酉时 (17:00-19:00)',
+                    '19-21': '戌时 (19:00-21:00)',
+                    '21-23': '亥时 (21:00-23:00)'
+                };
+                
+                return times[timeValue] || '未知时辰';
+            }
+        });
+    </script>
+</body>
+</html>
